@@ -1,0 +1,24 @@
+{
+  "name": "practice",
+  "version": "1.0.0",
+  "description": "\"# backend-practice-youtube-project\"",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luqmnkn/backend-practice-youtube-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luqmnkn/backend-practice-youtube-project/issues"
+  },
+  "homepage": "https://github.com/luqmnkn/backend-practice-youtube-project#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
