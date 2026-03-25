@@ -8,6 +8,17 @@ dotenv.config({
 })
 
 connectDB()
+.then(()=>{
+    app.listen(process.env.PORT || 3000 , ()=>{
+        console.log("server is listening on port ", process.env.PORT)
+    })
+    app.on("error" , (error)=>{
+console.log("server error" , error)
+    })
+})
+.catch((err) => {
+    console.log("monogodb connection error" , err)
+})
 
 
 
