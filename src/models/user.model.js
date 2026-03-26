@@ -27,7 +27,7 @@ const userSchema = new Schema({
         type:String, //cloudinary url
         required:true
     },
-    avatar :{
+    coverImage :{
         type:String,
     },
     watchHistory: [
@@ -37,7 +37,7 @@ const userSchema = new Schema({
         },
     ],
     password:{
-        type:true,
+        type:String,
         required:[true,"password is required"]
     },
     refreshToken:{
@@ -51,17 +51,17 @@ timestamps:true
 )
 
 userSchema.pre("save" ,   async function(next){
-    if(!this.isModified("passsword")) return next();
-    this.password = bcrypt.hash(this.password , 10)
+    if(!this.isModified("password")) return next();
+    this.password = await bcrypt.hash(this.password , 10)
         next()
     
 })
 
-userSchema.method.isPasswordcorrect =  async function (password){
-    return await bcrypt.compare(password,this.passowrd)
+userSchema.methods.isPasswordcorrect =  async function (password){
+    return await bcrypt.compare(password,this.password)
 }
 userSchema.methods.generateAccessToken = function(){
-    jwt.sign(
+   return jwt.sign(
         {
             _id: this._id,
             email:this.email,
@@ -74,13 +74,13 @@ userSchema.methods.generateAccessToken = function(){
     )
 }
 userSchema.methods.generateRefreshToken =function(){
-    jwt.sign(
+   return jwt.sign(
         {
             _id: this._id,
             email:this.email,
             fullname:this.fullname
         },
-        process.env.REFRESH_TOKEN-SECRET,
+        process.env.REFRESH_TOKEN_SECRET,
         {
             expiresIn:process.env.REFRESH_TOKEN_EXPIRY
         }
